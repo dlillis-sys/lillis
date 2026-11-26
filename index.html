@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +8,6 @@
   <title>David Lillis | Limerick, Ireland</title>
 
   <meta name="description" content="The official personal website of David Lillis, an IT professional based in Limerick, Ireland.">
-
   <meta name="author" content="David Lillis">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://lillis.ie/">
@@ -44,14 +44,18 @@
       background: #f3f6f8;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       min-height: 100vh;
       margin: 0;
-      display: grid;
-      place-items: center;
-      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 20px;
+      gap: 28px;
     }
 
     main {
@@ -63,7 +67,7 @@
       box-shadow: 0 18px 60px #19304718;
     }
 
-    img {
+    .profile-image {
       width: min(100%, 320px);
       aspect-ratio: 1;
       object-fit: cover;
@@ -82,18 +86,110 @@
       font-size: 1.2rem;
     }
 
-    p {
+    main p {
       margin: 0;
       color: #5c6874;
       font-size: 1.1rem;
       line-height: 1.7;
     }
+
+    /* Technology news section */
+
+    .news-section {
+      width: min(100%, 760px);
+      padding: clamp(22px, 5vw, 36px);
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 18px 60px #19304718;
+      text-align: left;
+    }
+
+    .news-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #e8eef3;
+    }
+
+    .news-heading h2 {
+      margin: 0;
+      color: #18212b;
+      font-size: 1.5rem;
+    }
+
+    .news-status {
+      color: #64748b;
+      font-size: 0.8rem;
+    }
+
+    .news-item {
+      padding: 18px 0;
+      border-bottom: 1px solid #e8eef3;
+    }
+
+    .news-item:last-child {
+      border-bottom: 0;
+    }
+
+    .news-item a {
+      color: #18212b;
+      text-decoration: none;
+      font-weight: 650;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .news-item a:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+
+    .news-meta {
+      margin-top: 6px;
+      color: #64748b;
+      font-size: 0.8rem;
+    }
+
+    .news-description {
+      margin-top: 8px;
+      color: #5c6874;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .news-footer {
+      padding-top: 14px;
+      color: #64748b;
+      font-size: 0.8rem;
+      border-top: 1px solid #e8eef3;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px;
+        gap: 18px;
+      }
+
+      .news-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- Personal profile -->
   <main>
-    <img src="/david-lillis.png" alt="David Lillis - Limerick, Ireland">
+    <img
+      class="profile-image"
+      src="/david-lillis.png"
+      alt="David Lillis - Limerick, Ireland"
+    >
 
     <h1>David Lillis</h1>
 
@@ -106,5 +202,121 @@
       cybersecurity and technology.
     </p>
   </main>
+
+  <!-- Technology and AI news -->
+  <section class="news-section" aria-labelledby="news-title">
+
+    <div class="news-heading">
+      <h2 id="news-title">Technology &amp; AI News</h2>
+      <span class="news-status" id="news-status">
+        Loading headlines...
+      </span>
+    </div>
+
+    <div id="news-list" aria-live="polite">
+      <p>Loading the latest technology news...</p>
+    </div>
+
+    <div class="news-footer" id="news-updated">
+      Latest technology headlines
+    </div>
+
+  </section>
+
+  <script>
+    async function loadNews() {
+      const list = document.getElementById("news-list");
+      const status = document.getElementById("news-status");
+      const updated = document.getElementById("news-updated");
+
+      const workerUrl =
+        "https://lillis-tech-news.dlillis.workers.dev/news.json";
+
+      try {
+        const response = await fetch(workerUrl, {
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error("News service returned an error");
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data.headlines) || data.headlines.length === 0) {
+          throw new Error("No headlines available");
+        }
+
+        list.replaceChildren();
+
+        data.headlines.slice(0, 15).forEach(item => {
+          const article = document.createElement("article");
+          article.className = "news-item";
+
+          const link = document.createElement("a");
+
+          let articleUrl;
+
+          try {
+            articleUrl = new URL(item.link);
+
+            if (!["https:", "http:"].includes(articleUrl.protocol)) {
+              return;
+            }
+          } catch {
+            return;
+          }
+
+          link.href = articleUrl.href;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = item.title || "Untitled article";
+
+          const meta = document.createElement("div");
+          meta.className = "news-meta";
+
+          const date = item.date
+            ? new Date(item.date).toLocaleDateString("en-IE")
+            : "Date unavailable";
+
+          meta.textContent =
+            (item.source || "Technology news") + " · " + date;
+
+          article.append(link, meta);
+
+          if (item.description) {
+            const description = document.createElement("div");
+            description.className = "news-description";
+            description.textContent = item.description;
+            article.append(description);
+          }
+
+          list.append(article);
+        });
+
+        if (!list.children.length) {
+          throw new Error("No valid article links received");
+        }
+
+        status.textContent = list.children.length + " latest headlines";
+
+        updated.textContent = data.updated
+          ? "Feed refreshed: " +
+            new Date(data.updated).toLocaleString("en-IE")
+          : "Latest technology headlines";
+
+      } catch (error) {
+        console.error("News feed error:", error);
+
+        list.textContent =
+          "Technology news is temporarily unavailable. Please check back shortly.";
+
+        status.textContent = "Feed unavailable";
+      }
+    }
+
+    loadNews();
+  </script>
+
 </body>
 </html>
