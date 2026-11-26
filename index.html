@@ -5,18 +5,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>David Lillis | Limerick, Ireland</title>
+  <title>David Lillis | IT Professional in Limerick, Ireland</title>
 
-  <meta name="description" content="The official personal website of David Lillis, an IT professional based in Limerick, Ireland.">
+  <meta name="description" content="Official website of David Lillis, an IT professional based in Limerick, Ireland. Connect with David and explore his interests in IT infrastructure, networking, cybersecurity and technology.">
+
   <meta name="author" content="David Lillis">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="googlebot" content="index, follow">
+
   <link rel="canonical" href="https://lillis.ie/">
 
-  <meta property="og:title" content="David Lillis">
-  <meta property="og:description" content="Official website of David Lillis, Limerick, Ireland.">
+  <meta property="og:title" content="David Lillis | Limerick, Ireland">
+  <meta property="og:description" content="The official website of David Lillis, an IT professional based in Limerick, Ireland.">
   <meta property="og:url" content="https://lillis.ie/">
   <meta property="og:type" content="profile">
   <meta property="og:image" content="https://lillis.ie/david-lillis.png">
+  <meta property="og:image:alt" content="David Lillis">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="David Lillis | Limerick, Ireland">
+  <meta name="twitter:description" content="Official website of David Lillis, IT professional in Limerick, Ireland.">
+  <meta name="twitter:image" content="https://lillis.ie/david-lillis.png">
 
   <script type="application/ld+json">
   {
@@ -27,12 +36,15 @@
     "url": "https://lillis.ie/",
     "image": "https://lillis.ie/david-lillis.png",
     "jobTitle": "IT Professional",
+    "sameAs": [
+      "https://www.linkedin.com/in/david-lillis-98b5b14/"
+    ],
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Limerick",
       "addressCountry": "IE"
     },
-    "description": "David Lillis is an IT professional based in Limerick, Ireland, with interests and experience in enterprise IT infrastructure, networking and technology."
+    "description": "David Lillis is an IT professional based in Limerick, Ireland, with interests and experience in enterprise IT infrastructure, networking, cybersecurity and technology."
   }
   </script>
 
@@ -41,7 +53,7 @@
       color-scheme: light;
       font-family: system-ui, sans-serif;
       color: #18212b;
-      background: #f3f6f8;
+      background: #303943;
     }
 
     * {
@@ -54,17 +66,27 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 32px 20px;
+      padding: 40px 20px;
       gap: 28px;
+
+      background:
+        linear-gradient(
+          rgba(20, 30, 40, 0.38),
+          rgba(20, 30, 40, 0.38)
+        ),
+        url("/limerick-background.png") center center / cover fixed;
+
+      background-color: #303943;
     }
 
     main {
       width: min(100%, 760px);
       padding: clamp(24px, 6vw, 56px);
       text-align: center;
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
       border-radius: 24px;
-      box-shadow: 0 18px 60px #19304718;
+      box-shadow: 0 18px 60px #00000030;
     }
 
     .profile-image {
@@ -73,6 +95,7 @@
       object-fit: cover;
       border-radius: 50%;
       border: 6px solid #e8eef3;
+      box-shadow: 0 8px 25px #19304725;
     }
 
     h1 {
@@ -93,14 +116,40 @@
       line-height: 1.7;
     }
 
-    /* Technology news section */
+    .linkedin-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 24px;
+      padding: 12px 22px;
+      background: #0a66c2;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .linkedin-button:hover {
+      background: #004182;
+      transform: translateY(-2px);
+    }
+
+    .linkedin-button svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
 
     .news-section {
       width: min(100%, 760px);
       padding: clamp(22px, 5vw, 36px);
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
       border-radius: 24px;
-      box-shadow: 0 18px 60px #19304718;
+      box-shadow: 0 18px 60px #00000030;
       text-align: left;
     }
 
@@ -167,10 +216,11 @@
       border-top: 1px solid #e8eef3;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       body {
-        padding: 16px 12px;
+        padding: 20px 12px;
         gap: 18px;
+        background-attachment: scroll;
       }
 
       .news-heading {
@@ -183,12 +233,13 @@
 
 <body>
 
-  <!-- Personal profile -->
   <main>
     <img
       class="profile-image"
       src="/david-lillis.png"
-      alt="David Lillis - Limerick, Ireland"
+      alt="David Lillis, IT professional in Limerick, Ireland"
+      width="320"
+      height="320"
     >
 
     <h1>David Lillis</h1>
@@ -201,9 +252,21 @@
       interests in IT infrastructure, networking,
       cybersecurity and technology.
     </p>
+
+    <a
+      class="linkedin-button"
+      href="https://www.linkedin.com/in/david-lillis-98b5b14/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Connect with David Lillis on LinkedIn"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12M7.12 20.45H3.56V9h3.56zM22.22 0H1.78C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.78 24h20.43c.99 0 1.79-.77 1.79-1.73V1.73C24 .77 23.2 0 22.22 0"/>
+      </svg>
+      Connect with me on LinkedIn
+    </a>
   </main>
 
-  <!-- Technology and AI news -->
   <section class="news-section" aria-labelledby="news-title">
 
     <div class="news-heading">
@@ -253,8 +316,6 @@
           const article = document.createElement("article");
           article.className = "news-item";
 
-          const link = document.createElement("a");
-
           let articleUrl;
 
           try {
@@ -267,6 +328,7 @@
             return;
           }
 
+          const link = document.createElement("a");
           link.href = articleUrl.href;
           link.target = "_blank";
           link.rel = "noopener noreferrer";
@@ -275,8 +337,9 @@
           const meta = document.createElement("div");
           meta.className = "news-meta";
 
-          const date = item.date
-            ? new Date(item.date).toLocaleDateString("en-IE")
+          const parsedDate = item.date ? new Date(item.date) : null;
+          const date = parsedDate && !isNaN(parsedDate)
+            ? parsedDate.toLocaleDateString("en-IE")
             : "Date unavailable";
 
           meta.textContent =
@@ -300,10 +363,12 @@
 
         status.textContent = list.children.length + " latest headlines";
 
-        updated.textContent = data.updated
-          ? "Feed refreshed: " +
-            new Date(data.updated).toLocaleString("en-IE")
-          : "Latest technology headlines";
+        const updatedDate = data.updated ? new Date(data.updated) : null;
+
+        updated.textContent =
+          updatedDate && !isNaN(updatedDate)
+            ? "Feed refreshed: " + updatedDate.toLocaleString("en-IE")
+            : "Latest technology headlines";
 
       } catch (error) {
         console.error("News feed error:", error);
